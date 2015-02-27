@@ -1,5 +1,7 @@
 package graphe;
 
+import tools.ToolsString;
+
 /**
  * Classe représentant un graphe dans cet exercice. Composé d'un tableau de mots
  * et d'un tableau d'indice de leurs successeurs respectifs.
@@ -13,6 +15,10 @@ public class Graphe {
 	private Liste[] listeSucc;
 	private int nb;
 
+	// 	========================================================================================= 
+	//	Constructeurs
+	// 	=========================================
+	
 	public Graphe(String[] lesMots) {
 		super();
 		this.mot = lesMots;
@@ -23,6 +29,9 @@ public class Graphe {
 			this.listeSucc[i] = new Liste();
 	}
 
+	// 	========================================================================================= 
+	//	Fonctions Utiles
+	// 	=========================================
 	
 	/**
 	 * Ajoute successeur à la liste des successeurs du predecesseur.
@@ -38,30 +47,6 @@ public class Graphe {
 
 	}
 	
-	
-	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
-	 */
-	static boolean diffUneLettre (String a, String b) {
-	    // a et b supposees de meme longueur
-	    int i=0 ;
-	    while (i<a.length () && a.charAt (i) == b.charAt (i))
-	      ++i ;
-	    if (i == a.length ()) return false ;
-	    ++i ;
-	    while (i<a.length () && a.charAt (i) == b.charAt (i))
-	      ++i ;
-	    if (i == a.length ()) return true ;
-	    return false ;
-	  }
-	
-	
-	/**
-	 * 
-	 */
 	public void lettreQuiSaute() {
 		// On fait toutes les combinaisons de mots possibles :
 		for (int i=0; i < nb; i++) {
@@ -70,7 +55,7 @@ public class Graphe {
 
 				// Si les deux mots différent d'une lettre et sont de même longueur on ajoute une arete
 				if (this.mot[i].length() == this.mot[j].length() 
-						&& diffUneLettre(this.mot[i],this.mot[j])) {
+						&& ToolsString.diffUneLettre(this.mot[i],this.mot[j])) {
 					this.ajouterArete(i,j);
 				}
 				
@@ -78,23 +63,16 @@ public class Graphe {
 		}
 	}
 	
+	
+	// 	========================================================================================= 
+	//	Accesseurs
+	// 	=========================================
+	
 	public String toString() {
 		String res = "";
 		for (int i=0; i< nb; i++)
 			res += this.listeSucc[i].toString()+"\n";
 		return res;
 	}
-	
-	public static void main (String[] args) {
-		String[] dico3court = {
-	       "gag", "gai", "gaz", "gel", "gks", "gin",
-	       "gnu", "glu", "gui", "guy", "gre", "gue",
-	       "ace", "acm", "agi", "ait", "aie", "ail",
-	       "air", "and", "alu", "ami", "arc", "are",
-	       "art", "apr", "avr", "sur", "mat", "mur" } ;
-		Graphe g = new Graphe (dico3court) ;
-	    g.lettreQuiSaute() ;
-	    System.out.println(g);
-	  }
-	
+
 }
