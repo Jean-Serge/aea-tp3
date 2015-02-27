@@ -19,8 +19,8 @@ public class Graphe {
 		this.nb = this.mot.length;
 		this.listeSucc = new Liste[nb];
 
-		for (Liste liste : this.listeSucc)
-			liste = new Liste();
+		for (int i=0; i< nb; i++)
+			this.listeSucc[i] = new Liste();
 	}
 
 	
@@ -34,6 +34,64 @@ public class Graphe {
 	 */
 	public void ajouterArete (int successeur, int predecesseur){
 		this.listeSucc[predecesseur].ajouter(successeur);
-		
+		this.listeSucc[successeur].ajouter(predecesseur);
+
 	}
+	
+	
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	static boolean diffUneLettre (String a, String b) {
+	    // a et b supposees de meme longueur
+	    int i=0 ;
+	    while (i<a.length () && a.charAt (i) == b.charAt (i))
+	      ++i ;
+	    if (i == a.length ()) return false ;
+	    ++i ;
+	    while (i<a.length () && a.charAt (i) == b.charAt (i))
+	      ++i ;
+	    if (i == a.length ()) return true ;
+	    return false ;
+	  }
+	
+	
+	/**
+	 * 
+	 */
+	public void lettreQuiSaute() {
+		// On fait toutes les combinaisons de mots possibles :
+		for (int i=0; i < nb; i++) {
+
+			for (int j=i+1; j < nb; j++) {
+
+				// Si les deux mots différent d'une lettre et sont de même longueur on ajoute une arete
+				if (this.mot[i].length() == this.mot[j].length() 
+						&& diffUneLettre(this.mot[i],this.mot[j])) {
+					this.ajouterArete(i,j);
+				}
+				
+			}
+		}
+	}
+	
+	public String toString() {
+		return "";//String
+	}
+	
+	public static void main (String[] args) {
+		String[] dico3court = {
+	       "gag", "gai", "gaz", "gel", "gks", "gin",
+	       "gnu", "glu", "gui", "guy", "gre", "gue",
+	       "ace", "acm", "agi", "ait", "aie", "ail",
+	       "air", "and", "alu", "ami", "arc", "are",
+	       "art", "apr", "avr", "sur", "mat", "mur" } ;
+		Graphe g = new Graphe (dico3court) ;
+	    g.lettreQuiSaute() ;
+	    g.toString();
+	  }
+	
 }
