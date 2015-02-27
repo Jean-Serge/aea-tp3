@@ -59,6 +59,7 @@ public class Liste {
 	 * @return un affichage en console du tableau
 	 */
 	public String toString(){
+		// Si la liste est vide
 		if(this.nb == 0){
 			return "[]";
 		}
