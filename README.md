@@ -8,8 +8,27 @@ sujet : http://www.lifl.fr/~derbel/ueAeA/partieII/LettreQuiSaute/
 
 Fichiers présents :
 ===================
-+ Liste.java 	: permet de manipuler des listes d'entiers sous la forme d'un tableau
-+ Graphe.java 	: classe centrale de l'exercice, représente le graphe sur lequel effectuer les calculs
+src/graphe
+----------
++ Liste.java 		: permet de manipuler des listes d'entiers sous la forme d'un tableau
++ Graphe.java 		: classe centrale de l'exercice, représente le graphe sur lequel effectuer les calculs
+
+src/tools
+---------
++ ToolsString.java 	: classe contenant des fonctions statiques de manipulation de chaines de caractères
++ Dicos.java 		: classe contenant des dictionnaires de mots de taille 3, 4 et 5		
+
+src/main 
+--------
++ Main.java 		: classe permettant de vérifier le bon fonctionnement de la fonction lettreQuiSaute()
+
+
+Travail Réalisé :
+=================
++ Écriture d'un programme utilisant la fonction lettreQuiSaute(), permet de définir la liste des successeurs 
+de chaque mot du dictionnaire utilisé
+
+
 
 Notes : 
 =======
