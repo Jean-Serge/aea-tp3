@@ -11,6 +11,11 @@ public class Liste {
 	private int[] liste;
 	private int nb;
 	
+	
+	// 	========================================================================================= 
+	//	Constructeurs
+	// 	=========================================
+	
 	/**
 	 * Permet d'initialiser la liste.
 	 */
@@ -20,7 +25,10 @@ public class Liste {
 		this.nb = 0;
 	}
 	
-
+	// 	========================================================================================= 
+	//	Fonctions utiles
+	// 	=========================================
+	
 	/**
 	 * Permet d'ajouter la valeur indiquée à la liste courante.
 	 * Si le tableau est plein, sa capacité est doublée.
@@ -41,6 +49,10 @@ public class Liste {
 		this.liste[nb++] = val;
 	}
 
+	// 	========================================================================================= 
+	//	Accesseurs
+	// 	=========================================
+	
 	/**
 	 * Affiche le contenu du tableau.
 	 * 
@@ -48,12 +60,27 @@ public class Liste {
 	 */
 	public String toString(){
 		String retour = "[" + this.liste[0];
-		
 		for(int i = 1 ; i < this.nb ; i++){
 			retour += ", " + this.liste[i];
 		}
-		
 		retour += "]";
+		
 		return retour;
+	}
+
+	/**
+	 * Retourne la taille totale allouée pour le tableau
+	 * @return la taille allouée pour le tableau
+	 */
+	public int tailleAllouee() {
+		return liste.length;
+	}
+
+	/**
+	 * Retourne le nombre d'éléments dans le tableau
+	 * @return le nombre d'éléments dans le tableau
+	 */
+	public int taille() {
+		return nb;
 	}
 }
