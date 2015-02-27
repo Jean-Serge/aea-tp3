@@ -87,4 +87,12 @@ public class Liste {
 	public int taille() {
 		return nb;
 	}
+	
+	/**
+	 * Retourne la liste d'entier correspondante à Liste.
+	 * @return la liste
+	 */
+	public int[] listeEntier() {
+		return this.liste;
+	}
 }
