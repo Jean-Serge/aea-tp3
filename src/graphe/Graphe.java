@@ -74,18 +74,22 @@ public class Graphe {
 	
 	
 	/**
-	 * 
-	 * @param depart
+	 * Effectue un parcours en profondeur dans le graphe depuis un mot de départ.
+	 * @param depart l'indice du mot de départ du parcours
 	 */
 	public void DFS(int depart) {
 		// On marque le départ :
 		this.dejaVu[depart] = true;
 		Liste succ = this.listeSucc[depart];
+		
+		// On récupère les indices de tous les successeurs du mot d'indice 'depart' :
 		int[] ind_succ = succ.listeEntier();
-				
+		
+		
 		for (int i=0; i< succ.taille(); i++) {
+			// Pour chaque successeur, si on trouve un mot qui n'a pas encore été parcouru alors on continu le parcours.
 			if (!this.dejaVu[ind_succ[i]]) {
-				System.out.println("on parcourt "+this.mot[i]+" en venant de "+this.mot[depart]);
+				System.out.println("on parcourt "+this.mot[ind_succ[i]]+" en venant de "+this.mot[depart]);
 				DFS(ind_succ[i]);
 			}
 		}
@@ -104,17 +108,4 @@ public class Graphe {
 		return res;
 	}
 	
-	
-	public static void main (String[] args) {
-	    String[] dico3court = {
-	       "gag", "gai", "gaz", "gel", "gks", "gin",
-	       "gnu", "glu", "gui", "guy", "gre", "gue",
-	       "ace", "acm", "agi", "ait", "aie", "ail",
-	       "air", "and", "alu", "ami", "arc", "are",
-	       "art", "apr", "avr", "sur", "mat", "mur" } ;
-	    Graphe g = new Graphe (dico3court) ;
-	    g.lettreQuiSaute() ;
-	    g.DFS(0);
-	  }
-
 }
