@@ -23,4 +23,17 @@ public class Graphe {
 			liste = new Liste();
 	}
 
+	
+	/**
+	 * Ajoute successeur à la liste des successeurs du predecesseur.
+	 * (on suppose que les mots qu'ils représentent différent bel et bien d'une lettre)
+	 * (on suppose également les entiers indiqués corrects)
+	 * 
+	 * @param successeur
+	 * @param predecesseur
+	 */
+	public void ajouterArete (int successeur, int predecesseur){
+		this.listeSucc[predecesseur].ajouter(successeur);
+		
+	}
 }
