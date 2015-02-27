@@ -79,7 +79,10 @@ public class Graphe {
 	}
 	
 	public String toString() {
-		return "";//String
+		String res = "";
+		for (int i=0; i< nb; i++)
+			res += this.listeSucc[i].toString()+"\n";
+		return res;
 	}
 	
 	public static void main (String[] args) {
@@ -91,7 +94,7 @@ public class Graphe {
 	       "art", "apr", "avr", "sur", "mat", "mur" } ;
 		Graphe g = new Graphe (dico3court) ;
 	    g.lettreQuiSaute() ;
-	    g.toString();
+	    System.out.println(g);
 	  }
 	
 }

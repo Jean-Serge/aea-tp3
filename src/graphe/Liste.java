@@ -59,6 +59,9 @@ public class Liste {
 	 * @return un affichage en console du tableau
 	 */
 	public String toString(){
+		if(this.nb == 0){
+			return "[]";
+		}
 		String retour = "[" + this.liste[0];
 		for(int i = 1 ; i < this.nb ; i++){
 			retour += ", " + this.liste[i];
