@@ -1,5 +1,6 @@
 package main;
 
+import tools.Dicos;
 import graphe.Graphe;
 
 public class Main {
@@ -11,8 +12,16 @@ public class Main {
 	       "ace", "acm", "agi", "ait", "aie", "ail",
 	       "air", "and", "alu", "ami", "arc", "are",
 	       "art", "apr", "avr", "sur", "mat", "mur" } ;
-		Graphe g = new Graphe (dico3court) ;
+		
+		// ------------------------------------------------
+		// Execution demandée pour l'exercice 2 :
+		
+		Graphe g = new Graphe (Dicos.dico4) ;
 	    g.lettreQuiSaute() ;
-	    System.out.println(g);
+	    g.visit();
+	    
+	    // "peur" et "lion" sont membres de la composante connexe n°1 !
+	    // ------------------------------------------------
+	    
 	  }
 }

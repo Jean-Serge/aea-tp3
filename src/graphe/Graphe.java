@@ -7,7 +7,7 @@ import tools.ToolsString;
  * et d'un tableau d'indice de leurs successeurs respectifs.
  * 
  * @author monbailly
- * 
+ * @author verbaere
  */
 public class Graphe {
 
@@ -72,12 +72,12 @@ public class Graphe {
 		}
 	}
 	
-	
 	/**
 	 * Effectue un parcours en profondeur dans le graphe depuis un mot de départ.
 	 * @param depart l'indice du mot de départ du parcours
 	 */
 	public void DFS(int depart) {
+		System.out.print(this.mot[depart]+" ");
 		// On marque le départ :
 		this.dejaVu[depart] = true;
 		Liste succ = this.listeSucc[depart];
@@ -89,11 +89,55 @@ public class Graphe {
 		for (int i=0; i< succ.taille(); i++) {
 			// Pour chaque successeur, si on trouve un mot qui n'a pas encore été parcouru alors on continu le parcours.
 			if (!this.dejaVu[ind_succ[i]]) {
-				System.out.println("on parcourt "+this.mot[ind_succ[i]]+" en venant de "+this.mot[depart]);
 				DFS(ind_succ[i]);
 			}
 		}
+	
+	}
+	
+	/**
+	 * Permet de visiter l'intégralité du graphe.
+	 * Un affichage vous renseignera sur le nombre de composantes connexes du graphe,
+	 * ainsi que les sommets qui y sont affectés.
+	 */
+	public void visit() {
+		// On initialise dejaVu afin de ne pas afficher plusieurs fois les mots
+		for (int i=0; i< nb; i++)
+			this.dejaVu[i] = false;
+		// dans un premier temps, on visite l'arbre depuis l'indice 0
+		int ind_non_vu = 0;
+		int compteur_composantes_connexes = 1;
 		
+		// Tant que nous avons des sommets qu'il reste a parcourir :
+		while (ind_non_vu != -1) {
+			// on affiche la valeur du compteur
+			System.out.print(compteur_composantes_connexes+" : ");
+			// Puis on affiche le résultat du DFS
+			this.DFS(ind_non_vu);
+			System.out.println();
+			// On incrémente le compteur
+			compteur_composantes_connexes++;
+			// On affecte à ind_non_vu l'indice du prochain sommet non parcouru
+			ind_non_vu = this.premierNonVu();
+		}
+	}
+	
+	/**
+	 * Retourne l'indice du premier sommet non visité, cad le premier indice du
+	 * tableau dejaVu qui est à false.
+	 * @return l'indice du premier sommet non visité, si on ne trouve pas alors -1
+	 */
+	public int premierNonVu() {
+		int i = 0;
+		
+		while (i < this.dejaVu.length && this.dejaVu[i] != false) {
+			i++;
+		}
+		// Si on a parcouru tout le tableau alors on doit renvoyer -1 sinon en renvoie la valeur de i
+		if (i == this.dejaVu.length)
+			return -1;
+		else
+			return i;
 	}
 	
 	

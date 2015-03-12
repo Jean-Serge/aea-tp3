@@ -41,7 +41,7 @@ public class Dicos {
 			"sue", "mai", "mal", "mat", "men", "mer", "met", "mil", "min",
 			"moi", "mol", "mon", "mot", "mou", "mme", "mur" };
 
-	static String[] dico4 = { "drap", "nuee", "agit", "mais", "krak", "eric",
+	public static String[] dico4 = { "drap", "nuee", "agit", "mais", "krak", "eric",
 			"aaai", "agir", "drop", "dome", "buis", "rode", "puce", "roda",
 			"drue", "buse", "bure", "rode", "haie", "hais", "hait", "puer",
 			"hall", "role", "halo", "haro", "puis", "hase", "decu", "pull",
