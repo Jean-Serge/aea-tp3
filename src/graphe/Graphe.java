@@ -15,6 +15,7 @@ public class Graphe {
 	private Liste[] listeSucc;
 	private int nb;
 	private boolean[] dejaVu;
+	private int[] pere;
 
 	// 	========================================================================================= 
 	//	Constructeurs
@@ -26,6 +27,7 @@ public class Graphe {
 		this.nb = this.mot.length;
 		this.listeSucc = new Liste[nb];
 		this.dejaVu = new boolean[nb];
+		this.pere = new int[nb];
 
 		for (int i=0; i< nb; i++)
 			this.listeSucc[i] = new Liste();
@@ -90,6 +92,7 @@ public class Graphe {
 			// Pour chaque successeur, si on trouve un mot qui n'a pas encore été parcouru alors on continu le parcours.
 			if (!this.dejaVu[ind_succ[i]]) {
 				DFS(ind_succ[i]);
+				this.pere[ind_succ[i]] = depart;
 			}
 		}
 	
@@ -140,6 +143,43 @@ public class Graphe {
 			return i;
 	}
 	
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 */
+	public void chemin(String from, String to) {
+		int indice_from = this.indice(from);
+		int indice_to = this.indice(to);
+		String chemin = "";
+		
+		while (indice_from != indice_to) {
+			if (indice_to == 0) {
+				System.out.println("pas de chemin possible entre "+from+" et "+to);
+				return;
+			}
+			chemin = this.mot[indice_to]+" "+chemin;
+			indice_to = this.pere[indice_to];
+		}
+		System.out.println(from+" "+chemin);
+	}
+	
+	/**
+	 * 
+	 * @param m
+	 * @param tabMots
+	 * @return
+	 */
+	public int indice (String m) {
+		
+	    for (int i=0 ; i<this.mot.length ; ++i)
+	        if (m.equals (this.mot[i]))
+	        	return i ;
+	    
+	    throw new Error (m + " n'est pas dans le tableau.");
+	    
+	 }
+		
 	
 	// 	========================================================================================= 
 	//	Accesseurs

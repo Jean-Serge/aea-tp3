@@ -1,7 +1,7 @@
 package tools;
 
 public class Dicos {
-	static String[] dico3 = { "gag", "gai", "gaz", "gel", "gks", "gin", "gnu",
+	public static String[] dico3 = { "gag", "gai", "gaz", "gel", "gks", "gin", "gnu",
 			"glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi", "ait",
 			"aie", "ail", "air", "and", "alu", "ami", "arc", "are", "art",
 			"apr", "avr", "sur", "mat", "mur", "eme", "ere", "git", "ras",
@@ -165,7 +165,7 @@ public class Dicos {
 			"elut", "acre", "acre", "acte", "emet", "emit", "emir", "emis",
 			"emoi", "item", "oter", "emue", "emut" };
 
-	static String[] dico5 = { "lagon", "bagou", "fagot", "ragot", "bagne",
+	public static String[] dico5 = { "lagon", "bagou", "fagot", "ragot", "bagne",
 			"pagne", "mugir", "nagle", "globe", "facon", "nuque", "leste",
 			"lesta", "zeste", "pesta", "peste", "veste", "bonus", "kyste",
 			"tonus", "honte", "grace", "exact", "tonte", "bague", "dague",
