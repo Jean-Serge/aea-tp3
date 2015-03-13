@@ -1,5 +1,13 @@
 package tools;
 
+/**
+ * Cette classe offre des fonctions statiques de manipulation de
+ * chaîne de caractère.
+ * 
+ * @author Jean-Serge Monbailly
+ * @author Thibaud Verbaere
+ *
+ */
 public class ToolsString {
 
 	/**
