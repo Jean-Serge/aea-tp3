@@ -92,7 +92,7 @@ public class Graphe {
 			// Pour chaque successeur, si on trouve un mot qui n'a pas encore été parcouru alors on continu le parcours.
 			if (!this.dejaVu[ind_succ[i]]) {
 				DFS(ind_succ[i]);
-				/*this.pere[ind_succ[i]] = depart;*/
+				this.pere[ind_succ[i]] = depart;
 			}
 		}
 	
@@ -109,6 +109,7 @@ public class Graphe {
 			this.dejaVu[i] = false;
 		// dans un premier temps, on visite l'arbre depuis l'indice 0
 		int ind_non_vu = 0;
+		this.pere[0] = -1;
 		int compteur_composantes_connexes = 1;
 		
 		// Tant que nous avons des sommets qu'il reste a parcourir :
@@ -148,19 +149,25 @@ public class Graphe {
 	 * @param from le mot de départ
 	 * @param to le mot de fin
 	 */
-	/*public void chemin(String from, String to) {
+	public void chemin(String from, String to) {
 		// On recupère les indices de départ et d'arrivée
 		int indice_from = this.indice(from);
 		int indice_to = this.indice(to);
 		// chemin1 et chemin2 vont se constituer au fur et a mesure de l'execution, a la fin la chemin sera la concaténation des deux
 		String chemin1 = to;
-		String chemin2 = from +" ";
+		String chemin2 = from;
 		
-		while (indice_from != 0 && this.pere[indice_to] != 0) {
-			// Ensuite on affecte a indice_to la valeur de son pere
-			indice_to = this.pere[indice_to];
-			if (indice_to !=0)
+		while (true) {
+			// Quand on trouve une correspondance : on a notre chemin ! on affiche et  on s'arrete
+			if (ToolsString.diffUneLettre(this.mot[indice_from],this.mot[indice_to])) {
+				System.out.println(chemin2+" "+chemin1);
+				return;
+			}
+			// Ensuite on affecte a indice_to la valeur de son pere (sauf si on se trouve au "sommet racine")
+			if (indice_to != 0) {
+				indice_to = this.pere[indice_to];
 				chemin1 = this.mot[indice_to]+" "+chemin1;
+			}
 			// Si la valeur du pere de indice_to est supérieure à indice from c'est qu'il faut aussi remonter au pére de from
 			while (indice_from > indice_to) {
 				indice_from = this.pere[indice_from];
@@ -168,12 +175,8 @@ public class Graphe {
 			}
 			
 		}
-		System.out.println(this.mot[indice_from]+this.mot[indice_to]);
-		if (ToolsString.diffUneLettre(this.mot[indice_from],this.mot[indice_to])) {
-				System.out.println(chemin2+chemin1);
-		}
 		
-	}*/
+	}
 	
 	/**
 	 * Retourne l'indice du mot passé en paramètre
