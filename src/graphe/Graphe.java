@@ -144,31 +144,43 @@ public class Graphe {
 	}
 	
 	/**
-	 * 
-	 * @param from
-	 * @param to
+	 * Imprime le chemin entre deux mots.
+	 * @param from le mot de départ
+	 * @param to le mot de fin
 	 */
 	public void chemin(String from, String to) {
+		// On recupère les indices de départ et d'arrivée
 		int indice_from = this.indice(from);
 		int indice_to = this.indice(to);
-		String chemin = "";
+		// chemin1 et chemin2 vont se constituer au fur et a mesure de l'execution, a la fin la chemin sera la concaténation des deux
+		String chemin1 = to;
+		String chemin2 = from;
 		
-		while (indice_from != indice_to) {
-			if (indice_to == 0) {
-				System.out.println("pas de chemin possible entre "+from+" et "+to);
+		// Si l'indice from est plus grand que l'indice to alors c'est qu'il n'y a pas de chemin possible, sinon on déroule l'algo
+		while (indice_from <= indice_to) {
+			// Si from = to alors on a rejoint les deux mots
+			if (indice_from == indice_to) {
+				System.out.println(chemin2+chemin1);
 				return;
 			}
-			chemin = this.mot[indice_to]+" "+chemin;
+			// Ensuite on affecte a indice_to la valeur de son pere
 			indice_to = this.pere[indice_to];
+			chemin1 = this.mot[indice_to]+" "+chemin1;
+			// Si la valeur du pere de indice_to est supérieure à indice from c'est qu'il faut aussi remonter au pére de from
+			while (indice_from > indice_to) {
+				indice_from = this.pere[indice_from];
+				chemin2 = chemin2+" "+this.mot[indice_from];
+			}
+			
 		}
-		System.out.println(from+" "+chemin);
+		
+		System.out.println("pas de chemin possible.");
 	}
 	
 	/**
-	 * 
-	 * @param m
-	 * @param tabMots
-	 * @return
+	 * Retourne l'indice du mot passé en paramètre
+	 * @param m le mot
+	 * @return l'indice
 	 */
 	public int indice (String m) {
 		
