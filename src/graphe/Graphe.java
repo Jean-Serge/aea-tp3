@@ -92,7 +92,7 @@ public class Graphe {
 			// Pour chaque successeur, si on trouve un mot qui n'a pas encore été parcouru alors on continu le parcours.
 			if (!this.dejaVu[ind_succ[i]]) {
 				DFS(ind_succ[i]);
-				this.pere[ind_succ[i]] = depart;
+				/*this.pere[ind_succ[i]] = depart;*/
 			}
 		}
 	
@@ -148,24 +148,19 @@ public class Graphe {
 	 * @param from le mot de départ
 	 * @param to le mot de fin
 	 */
-	public void chemin(String from, String to) {
+	/*public void chemin(String from, String to) {
 		// On recupère les indices de départ et d'arrivée
 		int indice_from = this.indice(from);
 		int indice_to = this.indice(to);
 		// chemin1 et chemin2 vont se constituer au fur et a mesure de l'execution, a la fin la chemin sera la concaténation des deux
 		String chemin1 = to;
-		String chemin2 = from;
+		String chemin2 = from +" ";
 		
-		// Si l'indice from est plus grand que l'indice to alors c'est qu'il n'y a pas de chemin possible, sinon on déroule l'algo
-		while (indice_from <= indice_to) {
-			// Si from = to alors on a rejoint les deux mots
-			if (indice_from == indice_to) {
-				System.out.println(chemin2+chemin1);
-				return;
-			}
+		while (indice_from != 0 && this.pere[indice_to] != 0) {
 			// Ensuite on affecte a indice_to la valeur de son pere
 			indice_to = this.pere[indice_to];
-			chemin1 = this.mot[indice_to]+" "+chemin1;
+			if (indice_to !=0)
+				chemin1 = this.mot[indice_to]+" "+chemin1;
 			// Si la valeur du pere de indice_to est supérieure à indice from c'est qu'il faut aussi remonter au pére de from
 			while (indice_from > indice_to) {
 				indice_from = this.pere[indice_from];
@@ -173,16 +168,19 @@ public class Graphe {
 			}
 			
 		}
+		System.out.println(this.mot[indice_from]+this.mot[indice_to]);
+		if (ToolsString.diffUneLettre(this.mot[indice_from],this.mot[indice_to])) {
+				System.out.println(chemin2+chemin1);
+		}
 		
-		System.out.println("pas de chemin possible.");
-	}
+	}*/
 	
 	/**
 	 * Retourne l'indice du mot passé en paramètre
 	 * @param m le mot
 	 * @return l'indice
 	 */
-	public int indice (String m) {
+	public int indice(String m) {
 		
 	    for (int i=0 ; i<this.mot.length ; ++i)
 	        if (m.equals (this.mot[i]))
