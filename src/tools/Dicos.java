@@ -1,6 +1,13 @@
 package tools;
 
+/**
+ * Cette classe offre l'accès static à 3 tableaux de String contenant une liste
+ * de mot utilisée comme un graphe.
+ * @author monbailly
+ *
+ */
 public class Dicos {
+	
 	public static String[] dico3 = { "gag", "gai", "gaz", "gel", "gks", "gin", "gnu",
 			"glu", "gui", "guy", "gre", "gue", "ace", "acm", "agi", "ait",
 			"aie", "ail", "air", "and", "alu", "ami", "arc", "are", "art",
