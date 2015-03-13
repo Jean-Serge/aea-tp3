@@ -1,13 +1,13 @@
 package graphe;
 
 /**
- * Classe permettant de manipuler des listes d'entiers (encapsule une ArrayList).
+ * Classe permettant de manipuler des listes d'entiers.
  * @author monbailly
  *
  */
 public class Liste {
 
-	private final int BASE_LENGTH = 5;
+	public final int BASE_LENGTH = 5;
 	private int[] liste;
 	private int nb;
 	
@@ -17,7 +17,7 @@ public class Liste {
 	// 	=========================================
 	
 	/**
-	 * Permet d'initialiser la liste.
+	 * Permet d'initialiser la liste (en fonction de la constante BASE_LENGTH).
 	 */
 	public Liste(){
 		super();
