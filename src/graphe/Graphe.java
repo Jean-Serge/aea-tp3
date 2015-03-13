@@ -1,5 +1,8 @@
 package graphe;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import tools.ToolsString;
 
 /**
@@ -95,8 +98,40 @@ public class Graphe {
 				this.pere[ind_succ[i]] = depart;
 			}
 		}
-	
 	}
+	
+	/*
+	public void BFSIteratif (int x) {
+		System.out.print(this.mot[x]+" ");
+		Queue<Integer> fifo = new LinkedList<Integer>();
+		this.dejaVu[x] = true;
+		
+		Liste succ = this.listeSucc[x];
+		// On récupère les indices de tous les successeurs du mot d'indice 'depart' :
+		int[] ind_succ = succ.listeEntier();
+		
+		for (int i=0; i< succ.taille(); i++) {
+			if (!this.dejaVu[ind_succ[i]])
+				fifo.add(ind_succ[i]);
+		}
+		
+		while (!fifo.isEmpty()) {
+			int y = fifo.remove();
+			System.out.print(this.mot[y]+" ");
+			succ = this.listeSucc[y];
+			// On récupère les indices de tous les successeurs du mot d'indice 'depart' :
+			ind_succ = succ.listeEntier();
+			
+			for (int i=0; i< succ.taille(); i++) {
+				if (!this.dejaVu[ind_succ[i]])
+					fifo.add(ind_succ[i]);
+			}
+			
+			this.dejaVu[y] = true;
+		}
+		
+	}
+	*/
 	
 	/**
 	 * Permet de visiter l'intégralité du graphe.
@@ -118,6 +153,7 @@ public class Graphe {
 			System.out.print(compteur_composantes_connexes+" : ");
 			// Puis on affiche le résultat du DFS
 			this.DFS(ind_non_vu);
+			//this.BFSIteratif(ind_non_vu);
 			System.out.println();
 			// On incrémente le compteur
 			compteur_composantes_connexes++;
