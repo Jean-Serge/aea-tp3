@@ -100,8 +100,12 @@ public class Graphe {
 		}
 	}
 	
-	/*
-	public void BFSIteratif (int x) {
+	/**
+	 * Effectue un parcours en profondeur dans le graphe depuis un mot de départ itérativement
+	 * (cad qu'on regarde les profondeurs x puis x+1 etc...).
+	 * @param depart l'indice du mot de départ du parcours
+	 */
+	public void BFSIteratif(int x) {
 		System.out.print(this.mot[x]+" ");
 		Queue<Integer> fifo = new LinkedList<Integer>();
 		this.dejaVu[x] = true;
@@ -110,50 +114,68 @@ public class Graphe {
 		// On récupère les indices de tous les successeurs du mot d'indice 'depart' :
 		int[] ind_succ = succ.listeEntier();
 		
+		// Initialisation, on ajoute dans la file, on marque et on affecte le pere des fils
+		// du sommet de départ.
 		for (int i=0; i< succ.taille(); i++) {
-			if (!this.dejaVu[ind_succ[i]])
-				fifo.add(ind_succ[i]);
+			this.dejaVu[ind_succ[i]] = true;
+			fifo.add(ind_succ[i]);
+			this.pere[ind_succ[i]] = 0;
 		}
 		
+		// Tant que la file n'a pas été vidée alors on execute l'algo
 		while (!fifo.isEmpty()) {
+			// On prend la valeur de tête
 			int y = fifo.remove();
+			
 			System.out.print(this.mot[y]+" ");
 			succ = this.listeSucc[y];
-			// On récupère les indices de tous les successeurs du mot d'indice 'depart' :
+			// On récupère les indices de tous les successeurs de cette tête :
 			ind_succ = succ.listeEntier();
 			
+			// Pour chaque successeur, s'il est pas marqué alors on le marque, on l'ajoute
+			// dans la file et on affecte son pere.
 			for (int i=0; i< succ.taille(); i++) {
-				if (!this.dejaVu[ind_succ[i]])
+				if (!this.dejaVu[ind_succ[i]]) {
 					fifo.add(ind_succ[i]);
+					this.pere[ind_succ[i]] = y;
+					this.dejaVu[ind_succ[i]] = true;
+				}
 			}
-			
-			this.dejaVu[y] = true;
+	
 		}
 		
 	}
-	*/
+	
 	
 	/**
 	 * Permet de visiter l'intégralité du graphe.
 	 * Un affichage vous renseignera sur le nombre de composantes connexes du graphe,
 	 * ainsi que les sommets qui y sont affectés.
+	 * @param mode le mode de parcours du graphe
+	 * 
 	 */
-	public void visit() {
+	public void visit(String mode) {
 		// On initialise dejaVu afin de ne pas afficher plusieurs fois les mots
 		for (int i=0; i< nb; i++)
 			this.dejaVu[i] = false;
 		// dans un premier temps, on visite l'arbre depuis l'indice 0
 		int ind_non_vu = 0;
-		this.pere[0] = -1;
 		int compteur_composantes_connexes = 1;
 		
 		// Tant que nous avons des sommets qu'il reste a parcourir :
 		while (ind_non_vu != -1) {
 			// on affiche la valeur du compteur
 			System.out.print(compteur_composantes_connexes+" : ");
-			// Puis on affiche le résultat du DFS
-			this.DFS(ind_non_vu);
-			//this.BFSIteratif(ind_non_vu);
+			
+			// A chaque racine de composante connexe on affecte à père -1 (utile pour chemin)
+			this.pere[ind_non_vu] = -1;
+			
+			// On effectue le parcours
+			if (mode.equals("DFS"))
+				this.DFS(ind_non_vu);
+			else
+				this.BFSIteratif(ind_non_vu);
+			
 			System.out.println();
 			// On incrémente le compteur
 			compteur_composantes_connexes++;
@@ -167,7 +189,7 @@ public class Graphe {
 	 * tableau dejaVu qui est à false.
 	 * @return l'indice du premier sommet non visité, si on ne trouve pas alors -1
 	 */
-	public int premierNonVu() {
+	private int premierNonVu() {
 		int i = 0;
 		
 		while (i < this.dejaVu.length && this.dejaVu[i] != false) {
@@ -184,34 +206,58 @@ public class Graphe {
 	 * Imprime le chemin entre deux mots.
 	 * @param from le mot de départ
 	 * @param to le mot de fin
+	 * 
 	 */
-	public void chemin(String from, String to) {
+	public String chemin(String from, String to) {
 		// On recupère les indices de départ et d'arrivée
 		int indice_from = this.indice(from);
 		int indice_to = this.indice(to);
 		// chemin1 et chemin2 vont se constituer au fur et a mesure de l'execution, a la fin la chemin sera la concaténation des deux
-		String chemin1 = to;
-		String chemin2 = from;
+		String chemin1 = "";
+		String chemin2 = "";
 		
-		while (true) {
-			// Quand on trouve une correspondance : on a notre chemin ! on affiche et  on s'arrete
-			if (ToolsString.diffUneLettre(this.mot[indice_from],this.mot[indice_to])) {
-				System.out.println(chemin2+" "+chemin1);
-				return;
+		while (indice_to != -1 && indice_from != -1) {
+			// Tant qu'on peut esperer trouver un resultat (indice_to et from != -1
+			if (indice_to == indice_from) {
+				// Si les deux indices sont identiques alors on a trouvé un chemin
+				if (ToolsString.diffUneLettre(chemin2.trim().split(" ")[0],from)
+						|| ToolsString.diffUneLettre(chemin1.trim().split(" ")[0],from))
+					return from+" "+(chemin2+" "+chemin1).trim();
+				else
+					return (chemin2+" "+chemin1).trim();
 			}
-			// Ensuite on affecte a indice_to la valeur de son pere (sauf si on se trouve au "sommet racine")
-			if (indice_to != 0) {
+			// Si l'indice to et plus grand que l'indice from alors on accede au pere de "to"
+			if (indice_to > indice_from) {
+				if (indice_to != -1)
+					chemin1 = this.mot[indice_to]+" "+chemin1;
 				indice_to = this.pere[indice_to];
-				chemin1 = this.mot[indice_to]+" "+chemin1;
 			}
-			// Si la valeur du pere de indice_to est supérieure à indice from c'est qu'il faut aussi remonter au pére de from
-			while (indice_from > indice_to) {
+			// Si l'indice from et plus grand que l'indice to alors on accede au pere de "from"
+			else {
+				if (indice_from != -1)
+					chemin2 = chemin2+" "+this.mot[indice_from];
 				indice_from = this.pere[indice_from];
-				chemin2 = chemin2+" "+this.mot[indice_from];
 			}
-			
 		}
+		// Sinon pas de chemin possible
+		return "pas de chemin";
+			
+	}
 		
+	
+	// 	========================================================================================= 
+	//	Accesseurs
+	// 	=========================================
+	
+	public String toString() {
+		String res = "";
+		for (int i=0; i< nb; i++)
+			res += this.listeSucc[i].toString()+"\n";
+		return res;
+	}
+	
+	public int[] tabPere() {
+		return this.pere;
 	}
 	
 	/**
@@ -228,17 +274,13 @@ public class Graphe {
 	    throw new Error (m + " n'est pas dans le tableau.");
 	    
 	 }
-		
 	
-	// 	========================================================================================= 
-	//	Accesseurs
-	// 	=========================================
+	public Liste[] getListe() {
+		return this.listeSucc;
+	}
 	
-	public String toString() {
-		String res = "";
-		for (int i=0; i< nb; i++)
-			res += this.listeSucc[i].toString()+"\n";
-		return res;
+	public boolean[] getDejaVu() {
+		return this.dejaVu;
 	}
 	
 }
