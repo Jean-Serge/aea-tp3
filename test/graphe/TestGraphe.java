@@ -118,6 +118,9 @@ public class TestGraphe {
 		String chem2 = g.chemin("bolt", "ault");
 		assertEquals("bolt bilt ailt aalt ault",chem2);
 		
+		chem = g.chemin("toto", "holy");
+		assertEquals("pas de chemin",chem);
+		
 		g.visit("BFS");
 		
 		chem = g.chemin("bolt", "holy");
@@ -125,6 +128,10 @@ public class TestGraphe {
 		
 		chem2 = g.chemin("bolt", "ault");
 		assertEquals("bolt bilt ailt ault",chem2);
+		
+		chem = g.chemin("toto", "holy");
+		assertEquals("pas de chemin",chem);
+		
 	}
 	
 }
