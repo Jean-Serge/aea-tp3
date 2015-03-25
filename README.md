@@ -1,7 +1,9 @@
-# aea-tp3
+# aea_tp3
+# Jean-Serge Monbailly
+# Thibaud Verbaere
+
 TP3 d'AeA, premier TP de la 2e partie du cours sur les graphes.
 
-Jean-Serge Monbailly
 
 #Jeu de la lettre qui saute : 
 sujet : http://www.lifl.fr/~derbel/ueAeA/partieII/LettreQuiSaute/
@@ -20,14 +22,14 @@ src/tools
 
 src/main 
 --------
-+ Main.java 		: classe permettant de vérifier le bon fonctionnement de la fonction lettreQuiSaute()
++ Main.java 		: classe permettant de vérifier le bon fonctionnement de la fonction lettreQuiSaute(). Cette classe répond également à la série de question du TP (ex. 1 à 4)
 
 
 Travail Réalisé :
 =================
 + Écriture d'un programme utilisant la fonction lettreQuiSaute(), permet de définir la liste des successeurs 
-de chaque mot du dictionnaire utilisé
-
+de chaque mot du dictionnaire utilisé.
++ Les exercices 1 à 4 ont été traités intégralement (cf Main).
 
 
 Notes : 
@@ -42,6 +44,13 @@ la classe
 + Si le tableau est plein, il est automatiquement remplacé par un tableau
 2 fois plus grand
 
+Graphe.java 
+----------
++ Permet d'initialiser un graphe grâce au dictionnaire de mots (lettreQuiSaute)
++ Propose un parcours en largeur depuis un sommet de départ (DFS)
++ Propose un parcours en profondeur depuis un sommet de départ (BFSIteratif)
++ Propose une méthode visitant et affichant tout le graphe (visit)
++ Propose une méthode calculant le chemin entre deux mots (chemin)
 
 
 
